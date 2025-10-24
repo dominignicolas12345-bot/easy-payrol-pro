@@ -97,8 +97,10 @@ export default function NominaModule({ empleados, onUpdate, empresa }: NominaMod
                         const parts = fullName.split(' ');
                         const nombres = parts.slice(-1).join(' ');
                         const apellidos = parts.slice(0, -1).join(' ');
-                        handleUpdate(empleado.id, "apellidos", apellidos);
-                        handleUpdate(empleado.id, "nombres", nombres);
+                        const updated = empleados.map((emp) =>
+                          emp.id === empleado.id ? { ...emp, apellidos, nombres } : emp
+                        );
+                        onUpdate(updated);
                       }}
                       className="h-10 text-sm min-w-[250px]"
                       placeholder="Apellidos Nombres"

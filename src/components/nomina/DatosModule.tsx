@@ -12,9 +12,7 @@ const MESES = [
 ];
 
 const getDiasMes = (mes: string, year: number = new Date().getFullYear()): number => {
-  const mesIndex = MESES.indexOf(mes);
-  if (mesIndex === -1) return 30;
-  return new Date(year, mesIndex + 1, 0).getDate();
+  return 30;
 };
 
 interface DatosModuleProps {

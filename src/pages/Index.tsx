@@ -12,7 +12,7 @@ const Index = () => {
     empresa: "",
     mes: "Enero",
     fechaCorte: new Date().toISOString().split("T")[0],
-    diasMes: 31,
+    diasMes: 30,
   });
 
   const [empleados, setEmpleados] = useState<Empleado[]>([]);

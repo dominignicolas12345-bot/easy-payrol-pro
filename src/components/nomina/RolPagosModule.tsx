@@ -174,9 +174,10 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
                     <td className="p-3 border-r">
                       <Input
                         type="number"
-                        value={row.diasTrabajados}
+                        value={row.diasTrabajados === 0 ? "" : row.diasTrabajados}
                         onChange={(e) => handleUpdate(empleado.id, "diasTrabajados", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[100px]"
+                        placeholder="0"
                       />
                     </td>
                     
@@ -185,35 +186,39 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.horas50}
+                        value={row.horas50 === 0 ? "" : row.horas50}
                         onChange={(e) => handleUpdate(empleado.id, "horas50", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[100px]"
+                        placeholder="0"
                       />
                     </td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.horas100}
+                        value={row.horas100 === 0 ? "" : row.horas100}
                         onChange={(e) => handleUpdate(empleado.id, "horas100", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[100px]"
+                        placeholder="0"
                       />
                     </td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.bonificacion}
+                        value={row.bonificacion === 0 ? "" : row.bonificacion}
                         onChange={(e) => handleUpdate(empleado.id, "bonificacion", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.viaticos}
+                        value={row.viaticos === 0 ? "" : row.viaticos}
                         onChange={(e) => handleUpdate(empleado.id, "viaticos", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.decimoTerceroMensualizado)}</td>
@@ -223,47 +228,52 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.prestamosEmpleado}
+                        value={row.prestamosEmpleado === 0 ? "" : row.prestamosEmpleado}
                         onChange={(e) => handleUpdate(empleado.id, "prestamosEmpleado", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[130px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.anticipoSueldo}
+                        value={row.anticipoSueldo === 0 ? "" : row.anticipoSueldo}
                         onChange={(e) => handleUpdate(empleado.id, "anticipoSueldo", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.retencionRenta}
+                        value={row.retencionRenta === 0 ? "" : row.retencionRenta}
                         onChange={(e) => handleUpdate(empleado.id, "retencionRenta", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.aportePersonal)}</td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.otrosDescuentos}
+                        value={row.otrosDescuentos === 0 ? "" : row.otrosDescuentos}
                         onChange={(e) => handleUpdate(empleado.id, "otrosDescuentos", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[100px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.prestamosIess}
+                        value={row.prestamosIess === 0 ? "" : row.prestamosIess}
                         onChange={(e) => handleUpdate(empleado.id, "prestamosIess", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[130px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3 text-right bg-muted/30 font-mono font-semibold border-r">${formatCurrency(row.totalDescuentos)}</td>
@@ -274,10 +284,11 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
                     <td className="p-3">
                       <Input
                         type="number"
-                        value={row.depositoIess}
+                        value={row.depositoIess === 0 ? "" : row.depositoIess}
                         onChange={(e) => handleUpdate(empleado.id, "depositoIess", parseFloat(e.target.value) || 0)}
                         className="h-9 text-right text-sm min-w-[130px]"
                         step="0.01"
+                        placeholder="0.00"
                       />
                     </td>
                     <td className="p-3 text-right bg-primary/5 font-mono font-bold text-base">${formatCurrency(row.netoRecibir)}</td>
