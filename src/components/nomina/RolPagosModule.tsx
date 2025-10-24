@@ -116,17 +116,17 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
         </p>
       </div>
 
-      <Card className="shadow-lg">
+      <Card className="shadow-lg border-2">
         <div className="overflow-x-auto">
           <table className="w-full text-sm min-w-max">
             <thead>
-              <tr className="border-b bg-table-header">
-                <th colSpan={5} className="text-center p-3 font-semibold border-r">DATOS</th>
-                <th colSpan={7} className="text-center p-3 font-semibold border-r">INGRESOS</th>
-                <th colSpan={7} className="text-center p-3 font-semibold border-r">DESCUENTOS</th>
-                <th colSpan={4} className="text-center p-3 font-semibold">LIQUIDACIÓN</th>
+              <tr className="border-b bg-primary/5">
+                <th colSpan={5} className="text-center p-3 font-bold border-r">DATOS</th>
+                <th colSpan={7} className="text-center p-3 font-bold border-r">INGRESOS</th>
+                <th colSpan={7} className="text-center p-3 font-bold border-r">DESCUENTOS</th>
+                <th colSpan={4} className="text-center p-3 font-bold">LIQUIDACIÓN</th>
               </tr>
-              <tr className="border-b bg-table-header text-xs">
+              <tr className="border-b bg-primary/5 text-xs">
                 {/* DATOS */}
                 <th className="p-3 text-left whitespace-nowrap">No.</th>
                 <th className="p-3 text-left whitespace-nowrap min-w-[200px]">Nombre</th>

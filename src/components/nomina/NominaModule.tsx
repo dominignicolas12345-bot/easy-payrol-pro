@@ -67,22 +67,22 @@ export default function NominaModule({ empleados, onUpdate, empresa }: NominaMod
         </Button>
       </div>
 
-      <Card className="shadow-lg">
+      <Card className="shadow-lg border-2">
         <div className="overflow-x-auto">
           <table className="w-full min-w-max">
             <thead>
-              <tr className="border-b bg-table-header">
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap">No.</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[250px]">Nombre Completo</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[150px]">Cédula</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[180px]">Cargo</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[180px]">Asignación</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[150px]">Sueldo Nominal</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap">Estado</th>
-                <th className="text-center p-4 text-sm font-semibold whitespace-nowrap">Fondo Reserva</th>
-                <th className="text-center p-4 text-sm font-semibold whitespace-nowrap">Acumula Fondo</th>
-                <th className="text-center p-4 text-sm font-semibold whitespace-nowrap">Mensualiza Décimos</th>
-                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap">Acciones</th>
+              <tr className="border-b bg-primary/5">
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap">No.</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap min-w-[250px]">Nombre Completo</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap min-w-[150px]">Cédula</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap min-w-[180px]">Cargo</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap min-w-[180px]">Asignación</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap min-w-[150px]">Sueldo Nominal</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap">Estado</th>
+                <th className="text-center p-4 text-sm font-bold whitespace-nowrap">Fondo Reserva</th>
+                <th className="text-center p-4 text-sm font-bold whitespace-nowrap">Acumula Fondo</th>
+                <th className="text-center p-4 text-sm font-bold whitespace-nowrap">Mensualiza Décimos</th>
+                <th className="text-left p-4 text-sm font-bold whitespace-nowrap">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -94,13 +94,19 @@ export default function NominaModule({ empleados, onUpdate, empresa }: NominaMod
                       value={`${empleado.apellidos} ${empleado.nombres}`.trim()}
                       onChange={(e) => {
                         const fullName = e.target.value;
-                        const parts = fullName.split(' ');
-                        const nombres = parts.slice(-1).join(' ');
-                        const apellidos = parts.slice(0, -1).join(' ');
-                        const updated = empleados.map((emp) =>
-                          emp.id === empleado.id ? { ...emp, apellidos, nombres } : emp
-                        );
-                        onUpdate(updated);
+                        const lastSpaceIndex = fullName.lastIndexOf(' ');
+                        let apellidos = '';
+                        let nombres = '';
+
+                        if (lastSpaceIndex > 0) {
+                          apellidos = fullName.substring(0, lastSpaceIndex);
+                          nombres = fullName.substring(lastSpaceIndex + 1);
+                        } else {
+                          apellidos = fullName;
+                        }
+
+                        handleUpdate(empleado.id, "apellidos", apellidos);
+                        handleUpdate(empleado.id, "nombres", nombres);
                       }}
                       className="h-10 text-sm min-w-[250px]"
                       placeholder="Apellidos Nombres"

@@ -6,11 +6,21 @@ import RolPagosModule from "@/components/nomina/RolPagosModule";
 import { DatosConfig, Empleado } from "@/types/nomina";
 import { FileSpreadsheet, Users, Calculator } from "lucide-react";
 
+const MESES = [
+  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+];
+
+const getCurrentMonth = () => {
+  const monthIndex = new Date().getMonth();
+  return MESES[monthIndex];
+};
+
 const Index = () => {
   const [datos, setDatos] = useState<DatosConfig>({
     id: "1",
     empresa: "",
-    mes: "Enero",
+    mes: getCurrentMonth(),
     fechaCorte: new Date().toISOString().split("T")[0],
     diasMes: 30,
   });
@@ -23,48 +33,64 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center gap-3">
-            <FileSpreadsheet className="h-8 w-8" />
-            <div>
-              <h1 className="text-2xl font-bold">Sistema de Nómina</h1>
-              <p className="text-sm text-muted-foreground">Gestión profesional de roles de pago</p>
+      {activeTab === "datos" ? (
+        <main className="min-h-screen flex items-center justify-center px-6 py-12">
+          <DatosModule
+            datos={datos}
+            onUpdate={setDatos}
+            onContinue={() => setActiveTab("nomina")}
+          />
+        </main>
+      ) : (
+        <>
+          <header className="border-b bg-card">
+            <div className="container mx-auto px-6 py-4">
+              <div className="flex items-center gap-3">
+                <FileSpreadsheet className="h-8 w-8" />
+                <div>
+                  <h1 className="text-2xl font-bold">Sistema de Nómina</h1>
+                  <p className="text-sm text-muted-foreground">Gestión profesional de roles de pago</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </header>
+          </header>
 
-      <main className="container mx-auto px-6 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-2xl grid-cols-3">
-            <TabsTrigger value="datos" className="gap-2">
-              <FileSpreadsheet className="h-4 w-4" />
-              Datos
-            </TabsTrigger>
-            <TabsTrigger value="nomina" className="gap-2" disabled={!canAccessNomina}>
-              <Users className="h-4 w-4" />
-              Nómina
-            </TabsTrigger>
-            <TabsTrigger value="rol" className="gap-2" disabled={!canAccessRol}>
-              <Calculator className="h-4 w-4" />
-              Rol de Pagos
-            </TabsTrigger>
-          </TabsList>
+          <main className="container mx-auto px-6 py-8">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+              <TabsList className="grid w-full max-w-2xl grid-cols-3">
+                <TabsTrigger value="datos" className="gap-2">
+                  <FileSpreadsheet className="h-4 w-4" />
+                  Datos
+                </TabsTrigger>
+                <TabsTrigger value="nomina" className="gap-2" disabled={!canAccessNomina}>
+                  <Users className="h-4 w-4" />
+                  Nómina
+                </TabsTrigger>
+                <TabsTrigger value="rol" className="gap-2" disabled={!canAccessRol}>
+                  <Calculator className="h-4 w-4" />
+                  Rol de Pagos
+                </TabsTrigger>
+              </TabsList>
 
-          <TabsContent value="datos">
-            <DatosModule datos={datos} onUpdate={setDatos} />
-          </TabsContent>
+              <TabsContent value="datos">
+                <DatosModule
+                  datos={datos}
+                  onUpdate={setDatos}
+                  onContinue={() => setActiveTab("nomina")}
+                />
+              </TabsContent>
 
-          <TabsContent value="nomina">
-            <NominaModule empleados={empleados} onUpdate={setEmpleados} empresa={datos.empresa} />
-          </TabsContent>
+              <TabsContent value="nomina">
+                <NominaModule empleados={empleados} onUpdate={setEmpleados} empresa={datos.empresa} />
+              </TabsContent>
 
-          <TabsContent value="rol">
-            <RolPagosModule empleados={empleados} datos={datos} />
-          </TabsContent>
-        </Tabs>
-      </main>
+              <TabsContent value="rol">
+                <RolPagosModule empleados={empleados} datos={datos} />
+              </TabsContent>
+            </Tabs>
+          </main>
+        </>
+      )}
     </div>
   );
 };
