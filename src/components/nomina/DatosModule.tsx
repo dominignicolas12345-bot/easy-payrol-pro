@@ -22,6 +22,10 @@ interface DatosModuleProps {
   onUpdate: (datos: DatosConfig) => void;
 }
 
+const isFormComplete = (datos: DatosConfig): boolean => {
+  return datos.empresa.trim() !== "" && datos.mes !== "" && datos.fechaCorte !== "";
+};
+
 export default function DatosModule({ datos, onUpdate }: DatosModuleProps) {
   const [localDatos, setLocalDatos] = useState(datos);
 
@@ -45,7 +49,7 @@ export default function DatosModule({ datos, onUpdate }: DatosModuleProps) {
         </p>
       </div>
 
-      <Card className="p-6">
+      <Card className="p-6 shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
             <Label htmlFor="empresa">Nombre de la Empresa</Label>
@@ -90,10 +94,18 @@ export default function DatosModule({ datos, onUpdate }: DatosModuleProps) {
         </div>
 
         <div className="mt-6 pt-6 border-t">
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Días del mes:</span>
             <span className="font-semibold text-lg">{localDatos.diasMes}</span>
           </div>
+          
+          {isFormComplete(localDatos) && (
+            <div className="mt-4 p-3 bg-success/10 border border-success/20 rounded-md">
+              <p className="text-sm text-success-foreground text-center font-medium">
+                ✓ Datos completos. Puede continuar a Nómina
+              </p>
+            </div>
+          )}
         </div>
       </Card>
     </div>

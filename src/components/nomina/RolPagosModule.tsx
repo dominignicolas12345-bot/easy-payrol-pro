@@ -116,47 +116,47 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
         </p>
       </div>
 
-      <Card>
+      <Card className="shadow-lg">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-max">
             <thead>
               <tr className="border-b bg-table-header">
-                <th colSpan={5} className="text-center p-2 font-semibold border-r">DATOS</th>
-                <th colSpan={7} className="text-center p-2 font-semibold border-r">INGRESOS</th>
-                <th colSpan={7} className="text-center p-2 font-semibold border-r">DESCUENTOS</th>
-                <th colSpan={4} className="text-center p-2 font-semibold">LIQUIDACIÓN</th>
+                <th colSpan={5} className="text-center p-3 font-semibold border-r">DATOS</th>
+                <th colSpan={7} className="text-center p-3 font-semibold border-r">INGRESOS</th>
+                <th colSpan={7} className="text-center p-3 font-semibold border-r">DESCUENTOS</th>
+                <th colSpan={4} className="text-center p-3 font-semibold">LIQUIDACIÓN</th>
               </tr>
               <tr className="border-b bg-table-header text-xs">
                 {/* DATOS */}
-                <th className="p-2 text-left">No.</th>
-                <th className="p-2 text-left">Nombre</th>
-                <th className="p-2 text-left">Cargo</th>
-                <th className="p-2 text-right">Días Mes</th>
-                <th className="p-2 text-right border-r">Días Trab.</th>
+                <th className="p-3 text-left whitespace-nowrap">No.</th>
+                <th className="p-3 text-left whitespace-nowrap min-w-[200px]">Nombre</th>
+                <th className="p-3 text-left whitespace-nowrap min-w-[150px]">Cargo</th>
+                <th className="p-3 text-right whitespace-nowrap">Días Mes</th>
+                <th className="p-3 text-right border-r whitespace-nowrap min-w-[100px]">Días Trab.</th>
                 
                 {/* INGRESOS */}
-                <th className="p-2 text-right">Sueldo</th>
-                <th className="p-2 text-right">Horas 50%</th>
-                <th className="p-2 text-right">Horas 100%</th>
-                <th className="p-2 text-right">Bonificación</th>
-                <th className="p-2 text-right">Viáticos</th>
-                <th className="p-2 text-right">13ro</th>
-                <th className="p-2 text-right border-r">Total Ganado</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Sueldo</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[100px]">Horas 50%</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[100px]">Horas 100%</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Bonificación</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Viáticos</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[100px]">13ro</th>
+                <th className="p-3 text-right border-r whitespace-nowrap min-w-[130px]">Total Ganado</th>
                 
                 {/* DESCUENTOS */}
-                <th className="p-2 text-right">Préstamos Emp.</th>
-                <th className="p-2 text-right">Anticipo</th>
-                <th className="p-2 text-right">Ret. Renta</th>
-                <th className="p-2 text-right">Aporte IESS</th>
-                <th className="p-2 text-right">Otros</th>
-                <th className="p-2 text-right">Préstamos IESS</th>
-                <th className="p-2 text-right border-r">Total Desc.</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[130px]">Préstamos Emp.</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Anticipo</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Ret. Renta</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Aporte IESS</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[100px]">Otros</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[130px]">Préstamos IESS</th>
+                <th className="p-3 text-right border-r whitespace-nowrap min-w-[130px]">Total Desc.</th>
                 
                 {/* LIQUIDACIÓN */}
-                <th className="p-2 text-right">Subtotal</th>
-                <th className="p-2 text-right">Fondo Reserva</th>
-                <th className="p-2 text-right">Depósito IESS</th>
-                <th className="p-2 text-right">Neto a Recibir</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[120px]">Subtotal</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[130px]">Fondo Reserva</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[130px]">Depósito IESS</th>
+                <th className="p-3 text-right whitespace-nowrap min-w-[140px]">Neto a Recibir</th>
               </tr>
             </thead>
             <tbody>
@@ -167,120 +167,120 @@ export default function RolPagosModule({ empleados, datos }: RolPagosModuleProps
                 return (
                   <tr key={empleado.id} className="border-b hover:bg-table-hover transition-colors">
                     {/* DATOS */}
-                    <td className="p-2">{index + 1}</td>
-                    <td className="p-2 font-medium">{`${empleado.apellidos} ${empleado.nombres}`}</td>
-                    <td className="p-2 text-muted-foreground">{empleado.cargo}</td>
-                    <td className="p-2 text-right">{row.diasMes}</td>
-                    <td className="p-2 border-r">
+                    <td className="p-3">{index + 1}</td>
+                    <td className="p-3 font-medium">{`${empleado.apellidos} ${empleado.nombres}`}</td>
+                    <td className="p-3 text-muted-foreground">{empleado.cargo}</td>
+                    <td className="p-3 text-right">{row.diasMes}</td>
+                    <td className="p-3 border-r">
                       <Input
                         type="number"
                         value={row.diasTrabajados}
                         onChange={(e) => handleUpdate(empleado.id, "diasTrabajados", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-16"
+                        className="h-9 text-right text-sm min-w-[100px]"
                       />
                     </td>
                     
                     {/* INGRESOS */}
-                    <td className="p-2 text-right bg-muted/30 font-mono">${formatCurrency(row.sueldo)}</td>
-                    <td className="p-2">
+                    <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.sueldo)}</td>
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.horas50}
                         onChange={(e) => handleUpdate(empleado.id, "horas50", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-16"
+                        className="h-9 text-right text-sm min-w-[100px]"
                       />
                     </td>
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.horas100}
                         onChange={(e) => handleUpdate(empleado.id, "horas100", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-16"
+                        className="h-9 text-right text-sm min-w-[100px]"
                       />
                     </td>
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.bonificacion}
                         onChange={(e) => handleUpdate(empleado.id, "bonificacion", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.viaticos}
                         onChange={(e) => handleUpdate(empleado.id, "viaticos", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2 text-right bg-muted/30 font-mono">${formatCurrency(row.decimoTerceroMensualizado)}</td>
-                    <td className="p-2 text-right bg-muted/30 font-mono font-semibold border-r">${formatCurrency(row.totalGanado)}</td>
+                    <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.decimoTerceroMensualizado)}</td>
+                    <td className="p-3 text-right bg-muted/30 font-mono font-semibold border-r">${formatCurrency(row.totalGanado)}</td>
                     
                     {/* DESCUENTOS */}
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.prestamosEmpleado}
                         onChange={(e) => handleUpdate(empleado.id, "prestamosEmpleado", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[130px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.anticipoSueldo}
                         onChange={(e) => handleUpdate(empleado.id, "anticipoSueldo", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.retencionRenta}
                         onChange={(e) => handleUpdate(empleado.id, "retencionRenta", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[120px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2 text-right bg-muted/30 font-mono">${formatCurrency(row.aportePersonal)}</td>
-                    <td className="p-2">
+                    <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.aportePersonal)}</td>
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.otrosDescuentos}
                         onChange={(e) => handleUpdate(empleado.id, "otrosDescuentos", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[100px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2">
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.prestamosIess}
                         onChange={(e) => handleUpdate(empleado.id, "prestamosIess", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[130px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2 text-right bg-muted/30 font-mono font-semibold border-r">${formatCurrency(row.totalDescuentos)}</td>
+                    <td className="p-3 text-right bg-muted/30 font-mono font-semibold border-r">${formatCurrency(row.totalDescuentos)}</td>
                     
                     {/* LIQUIDACIÓN */}
-                    <td className="p-2 text-right bg-muted/30 font-mono">${formatCurrency(row.subtotal)}</td>
-                    <td className="p-2 text-right bg-muted/30 font-mono">${formatCurrency(row.valorFondoReserva)}</td>
-                    <td className="p-2">
+                    <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.subtotal)}</td>
+                    <td className="p-3 text-right bg-muted/30 font-mono">${formatCurrency(row.valorFondoReserva)}</td>
+                    <td className="p-3">
                       <Input
                         type="number"
                         value={row.depositoIess}
                         onChange={(e) => handleUpdate(empleado.id, "depositoIess", parseFloat(e.target.value) || 0)}
-                        className="h-7 text-right text-xs w-20"
+                        className="h-9 text-right text-sm min-w-[130px]"
                         step="0.01"
                       />
                     </td>
-                    <td className="p-2 text-right bg-primary/5 font-mono font-bold text-base">${formatCurrency(row.netoRecibir)}</td>
+                    <td className="p-3 text-right bg-primary/5 font-mono font-bold text-base">${formatCurrency(row.netoRecibir)}</td>
                   </tr>
                 );
               })}

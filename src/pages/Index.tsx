@@ -16,6 +16,10 @@ const Index = () => {
   });
 
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
+  const [activeTab, setActiveTab] = useState("datos");
+
+  const canAccessNomina = datos.empresa.trim() !== "";
+  const canAccessRol = canAccessNomina && empleados.length > 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -32,17 +36,17 @@ const Index = () => {
       </header>
 
       <main className="container mx-auto px-6 py-8">
-        <Tabs defaultValue="datos" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full max-w-2xl grid-cols-3">
             <TabsTrigger value="datos" className="gap-2">
               <FileSpreadsheet className="h-4 w-4" />
               Datos
             </TabsTrigger>
-            <TabsTrigger value="nomina" className="gap-2">
+            <TabsTrigger value="nomina" className="gap-2" disabled={!canAccessNomina}>
               <Users className="h-4 w-4" />
               Nómina
             </TabsTrigger>
-            <TabsTrigger value="rol" className="gap-2">
+            <TabsTrigger value="rol" className="gap-2" disabled={!canAccessRol}>
               <Calculator className="h-4 w-4" />
               Rol de Pagos
             </TabsTrigger>
@@ -53,7 +57,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="nomina">
-            <NominaModule empleados={empleados} onUpdate={setEmpleados} />
+            <NominaModule empleados={empleados} onUpdate={setEmpleados} empresa={datos.empresa} />
           </TabsContent>
 
           <TabsContent value="rol">

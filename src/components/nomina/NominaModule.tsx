@@ -10,9 +10,10 @@ import { Switch } from "@/components/ui/switch";
 interface NominaModuleProps {
   empleados: Empleado[];
   onUpdate: (empleados: Empleado[]) => void;
+  empresa: string;
 }
 
-export default function NominaModule({ empleados, onUpdate }: NominaModuleProps) {
+export default function NominaModule({ empleados, onUpdate, empresa }: NominaModuleProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const handleAddEmpleado = () => {
@@ -31,7 +32,13 @@ export default function NominaModule({ empleados, onUpdate }: NominaModuleProps)
       mensualizaDecimos: false,
     };
     onUpdate([...empleados, newEmpleado]);
-    setEditingId(newEmpleado.id);
+  };
+
+  const toggleEstado = (id: string) => {
+    const updated = empleados.map((emp) =>
+      emp.id === id ? { ...emp, activo: !emp.activo } : emp
+    );
+    onUpdate(updated);
   };
 
   const handleUpdate = (id: string, field: keyof Empleado, value: any) => {
@@ -51,7 +58,7 @@ export default function NominaModule({ empleados, onUpdate }: NominaModuleProps)
         <div>
           <h2 className="text-2xl font-semibold mb-1">Base de Datos de Empleados</h2>
           <p className="text-sm text-muted-foreground">
-            Gestione la información personal y laboral de cada empleado
+            {empresa} - Gestione la información personal y laboral de cada empleado
           </p>
         </div>
         <Button onClick={handleAddEmpleado} size="sm" className="gap-2">
@@ -60,107 +67,115 @@ export default function NominaModule({ empleados, onUpdate }: NominaModuleProps)
         </Button>
       </div>
 
-      <Card>
+      <Card className="shadow-lg">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-max">
             <thead>
               <tr className="border-b bg-table-header">
-                <th className="text-left p-3 text-sm font-semibold">No.</th>
-                <th className="text-left p-3 text-sm font-semibold">Apellidos</th>
-                <th className="text-left p-3 text-sm font-semibold">Nombres</th>
-                <th className="text-left p-3 text-sm font-semibold">Cédula</th>
-                <th className="text-left p-3 text-sm font-semibold">Cargo</th>
-                <th className="text-left p-3 text-sm font-semibold">Asignación</th>
-                <th className="text-left p-3 text-sm font-semibold">Sueldo Nominal</th>
-                <th className="text-left p-3 text-sm font-semibold">Estado</th>
-                <th className="text-left p-3 text-sm font-semibold">Fondo Reserva</th>
-                <th className="text-left p-3 text-sm font-semibold">Acumula Fondo</th>
-                <th className="text-left p-3 text-sm font-semibold">Mensualiza Décimos</th>
-                <th className="text-left p-3 text-sm font-semibold">Acciones</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap">No.</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[250px]">Nombre Completo</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[150px]">Cédula</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[180px]">Cargo</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[180px]">Asignación</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap min-w-[150px]">Sueldo Nominal</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap">Estado</th>
+                <th className="text-center p-4 text-sm font-semibold whitespace-nowrap">Fondo Reserva</th>
+                <th className="text-center p-4 text-sm font-semibold whitespace-nowrap">Acumula Fondo</th>
+                <th className="text-center p-4 text-sm font-semibold whitespace-nowrap">Mensualiza Décimos</th>
+                <th className="text-left p-4 text-sm font-semibold whitespace-nowrap">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {empleados.map((empleado, index) => (
                 <tr key={empleado.id} className="border-b hover:bg-table-hover transition-colors">
-                  <td className="p-3 text-sm">{index + 1}</td>
-                  <td className="p-3">
+                  <td className="p-4 text-sm">{index + 1}</td>
+                  <td className="p-4">
                     <Input
-                      value={empleado.apellidos}
-                      onChange={(e) => handleUpdate(empleado.id, "apellidos", e.target.value)}
-                      className="h-8 text-sm"
-                      placeholder="Apellidos"
+                      value={`${empleado.apellidos} ${empleado.nombres}`.trim()}
+                      onChange={(e) => {
+                        const fullName = e.target.value;
+                        const parts = fullName.split(' ');
+                        const nombres = parts.slice(-1).join(' ');
+                        const apellidos = parts.slice(0, -1).join(' ');
+                        handleUpdate(empleado.id, "apellidos", apellidos);
+                        handleUpdate(empleado.id, "nombres", nombres);
+                      }}
+                      className="h-10 text-sm min-w-[250px]"
+                      placeholder="Apellidos Nombres"
                     />
                   </td>
-                  <td className="p-3">
-                    <Input
-                      value={empleado.nombres}
-                      onChange={(e) => handleUpdate(empleado.id, "nombres", e.target.value)}
-                      className="h-8 text-sm"
-                      placeholder="Nombres"
-                    />
-                  </td>
-                  <td className="p-3">
+                  <td className="p-4">
                     <Input
                       value={empleado.cedula}
                       onChange={(e) => handleUpdate(empleado.id, "cedula", e.target.value)}
-                      className="h-8 text-sm"
+                      className="h-10 text-sm min-w-[150px]"
                       placeholder="0000000000"
                     />
                   </td>
-                  <td className="p-3">
+                  <td className="p-4">
                     <Input
                       value={empleado.cargo}
                       onChange={(e) => handleUpdate(empleado.id, "cargo", e.target.value)}
-                      className="h-8 text-sm"
+                      className="h-10 text-sm min-w-[180px]"
                       placeholder="Cargo"
                     />
                   </td>
-                  <td className="p-3">
+                  <td className="p-4">
                     <Input
                       value={empleado.asignacion}
                       onChange={(e) => handleUpdate(empleado.id, "asignacion", e.target.value)}
-                      className="h-8 text-sm"
+                      className="h-10 text-sm min-w-[180px]"
                       placeholder="Asignación"
                     />
                   </td>
-                  <td className="p-3">
+                  <td className="p-4">
                     <Input
                       type="number"
                       value={empleado.sueldoNominal}
                       onChange={(e) => handleUpdate(empleado.id, "sueldoNominal", parseFloat(e.target.value) || 0)}
-                      className="h-8 text-sm"
+                      className="h-10 text-sm min-w-[150px]"
                       step="0.01"
                     />
                   </td>
-                  <td className="p-3">
-                    <Badge variant={empleado.activo ? "default" : "secondary"}>
+                  <td className="p-4">
+                    <Badge 
+                      variant={empleado.activo ? "default" : "secondary"}
+                      className="cursor-pointer select-none"
+                      onClick={() => toggleEstado(empleado.id)}
+                    >
                       {empleado.activo ? "Activo" : "Inactivo"}
                     </Badge>
                   </td>
-                  <td className="p-3 text-center">
-                    <Switch
-                      checked={empleado.tieneFondoReserva}
-                      onCheckedChange={(checked) => handleUpdate(empleado.id, "tieneFondoReserva", checked)}
-                    />
+                  <td className="p-4 text-center">
+                    <div className="flex justify-center">
+                      <Switch
+                        checked={empleado.tieneFondoReserva}
+                        onCheckedChange={(checked) => handleUpdate(empleado.id, "tieneFondoReserva", checked)}
+                      />
+                    </div>
                   </td>
-                  <td className="p-3 text-center">
-                    <Switch
-                      checked={empleado.acumulaFondoReserva}
-                      onCheckedChange={(checked) => handleUpdate(empleado.id, "acumulaFondoReserva", checked)}
-                    />
+                  <td className="p-4 text-center">
+                    <div className="flex justify-center">
+                      <Switch
+                        checked={empleado.acumulaFondoReserva}
+                        onCheckedChange={(checked) => handleUpdate(empleado.id, "acumulaFondoReserva", checked)}
+                      />
+                    </div>
                   </td>
-                  <td className="p-3 text-center">
-                    <Switch
-                      checked={empleado.mensualizaDecimos}
-                      onCheckedChange={(checked) => handleUpdate(empleado.id, "mensualizaDecimos", checked)}
-                    />
+                  <td className="p-4 text-center">
+                    <div className="flex justify-center">
+                      <Switch
+                        checked={empleado.mensualizaDecimos}
+                        onCheckedChange={(checked) => handleUpdate(empleado.id, "mensualizaDecimos", checked)}
+                      />
+                    </div>
                   </td>
-                  <td className="p-3">
+                  <td className="p-4">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleDelete(empleado.id)}
-                      className="h-8 w-8 p-0"
+                      className="h-9 w-9 p-0 hover:bg-destructive/10"
                     >
                       <X className="h-4 w-4" />
                     </Button>
